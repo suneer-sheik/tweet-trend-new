@@ -11,3 +11,5 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/suneer-sheik/tweet-trend-new.git'
             }
         }
+    }
+}
