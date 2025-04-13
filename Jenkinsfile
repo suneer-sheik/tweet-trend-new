@@ -7,14 +7,19 @@ pipeline {
 environment{
     PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
 }
+
     stages {
-        stage("Clean & Build"){
+        stage("Clean Workspace"){
             steps{
-                sh '''
-                cd ${WORKSPACE}
-                rm -rf ~/m2/repository/org/jacoco/org.jacoco.agent
-                /opt/apache-maven-3.9.9/bin/mvn clean install -U
-            '''
+                cleanWs()
+            }
+        }            
+    }
+
+    stages {
+        stage('Build'){
+            steps{
+                sh '/opt/apache-maven-3.9.9/bin/mvn clean install -U'
             }
         }            
     }
