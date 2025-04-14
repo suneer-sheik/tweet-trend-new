@@ -37,7 +37,7 @@ pipeline {
                     echo '<--------------- Jar Publish Started --------------->'
                     try {
                         // Create Artifactory server connection
-                        def server = Artifactory.newServer url:registry + "/artifactory", credentialsId: "artifact_cred"
+                        def server = Artifactory.newServer url: registry + "/artifactory", credentialsId: "artifact_cred"
                         
                         // Define properties to attach to the artifact
                         def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}"
@@ -48,7 +48,7 @@ pipeline {
                         def uploadSpec = """{
                             "files": [
                                 {
-                                    "pattern": "jarstaging/(*)", // Adjust this if your file pattern doesn't match
+                                    "pattern": "jarstaging/(*)", 
                                     "target": "libs-release-local/{1}",
                                     "flat": "false",
                                     "props" : "${properties}",
@@ -74,6 +74,6 @@ pipeline {
                     }
                 }
             }
-        }  
+        }
     }
 }
