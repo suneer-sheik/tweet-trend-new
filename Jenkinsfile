@@ -5,10 +5,6 @@ pipeline {
         PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
     }
 
-    tools {
-        maven 'maven-3.9.9'
-    }
-
     stages {
         stage('Build') {
             steps {
