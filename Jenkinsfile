@@ -15,23 +15,23 @@ environment {
             steps {
                  echo "----------- build started ----------"
                 sh 'mvn clean deploy -Dmaven.test.skip=true'
-                 echo "----------- build complted ----------"
+                 echo "----------- build completed ----------"
             }
         }
         stage("test"){
             steps{
                 echo "----------- unit test started ----------"
                 sh 'mvn surefire-report:report'
-                 echo "----------- unit test Complted ----------"
+                 echo "----------- unit test Completed ----------"
             }
         }
 
         stage('SonarQube analysis') {
             environment {
-                scannerHome = tool 'valaxy-sonar-scanner'
+                scannerHome = tool 'suneer-sonar-scanner'
             }
             steps{
-                withSonarQubeEnv('valaxy-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
+                withSonarQubeEnv('suneer-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
                 sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
