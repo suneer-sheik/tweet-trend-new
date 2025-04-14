@@ -1,32 +1,22 @@
 pipeline {
-    agent {
-        node {
-            label 'maven'
-        }
-    }
+    agent any
 
     environment {
         PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
     }
 
+    tools {
+        maven 'maven-3.9.9'
+    }
+
     stages {
         stage('Build') {
             steps {
-                echo "---------- build started ------------"
-                sh 'mvn clean deploy -Dmaven.test.skip=true'
-                echo "---------- build completed -----------"
+                sh 'mvn clean install'
             }
         }
 
-        stage('test'){
-            steps{
-                echo "---------- unit test started ------------"
-                sh 'mvn surefire-report:report'
-                echo "---------- unit test completed -----------" 
-            }
-        }
-
-        stage('SonarQube analysis') {
+        stage('SonarQube Analysis') {
             environment {
                 scannerHome = tool 'suneer-sonar-scanner'
             }
@@ -39,13 +29,8 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                scripts{
                 timeout(time: 1, unit: 'HOURS') {
-            def qg = waitForQualityGate()
-            if (qg.status != 'OK') {
-              error "pipeline aborted due to quality gate failure: ${qg.status}"
-            } 
-                }
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
