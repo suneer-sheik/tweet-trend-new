@@ -23,11 +23,9 @@ environment {
                 scannerHome = tool name: 'suneer-sonar-scanner'
             }
             steps {
-                echo "----------- SonarQube Analysis Started ----------"
-                withSonarQubeEnv('suneer-sonarqube-server') {
+                withSonarQubeEnv('suneer-sonarqube-server') {  // If you have configured more than one global server connection, you can specify its name
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
-                echo "----------- SonarQube Analysis Completed ----------"
             }
         }
     }
