@@ -1,6 +1,6 @@
 def registry = 'https://suneer.jfrog.io'
 def imageName = 'suneer.jfrog.io/suneer-docker/ttrend'
-def version   = '2.1.2'
+def version   = '2.1.3'
 pipeline {
     agent {
         node {
